@@ -50,7 +50,7 @@ __meta__ = {
 
 [node name="Label" type="Label" parent="VBoxContainer"]
 margin_right = 1080.0
-margin_bottom = 572.0
+margin_bottom = 428.0
 size_flags_horizontal = 3
 size_flags_vertical = 7
 custom_fonts/font = SubResource( 2 )
@@ -60,42 +60,53 @@ valign = 1
 autowrap = true
 
 [node name="Label2" type="Label" parent="VBoxContainer"]
-margin_top = 576.0
+margin_top = 432.0
 margin_right = 1080.0
-margin_bottom = 660.0
+margin_bottom = 516.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 4 )
 custom_colors/font_color = Color( 0, 1, 0.239216, 1 )
+custom_fonts/font = SubResource( 4 )
 text = "Received From plugin"
 align = 1
 valign = 1
 
 [node name="TextEdit" type="TextEdit" parent="VBoxContainer"]
-margin_top = 664.0
+margin_top = 520.0
 margin_right = 1080.0
-margin_bottom = 1237.0
+margin_bottom = 949.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/font = SubResource( 6 )
 text = "Hello"
 
 [node name="Button" type="Button" parent="VBoxContainer"]
-margin_top = 1241.0
+margin_top = 953.0
 margin_right = 1080.0
-margin_bottom = 1343.0
+margin_bottom = 1055.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
 custom_fonts/font = SubResource( 8 )
 text = "Send To Plugin"
 
 [node name="Button2" type="Button" parent="VBoxContainer"]
-margin_top = 1347.0
+margin_top = 1059.0
 margin_right = 1080.0
-margin_bottom = 1449.0
+margin_bottom = 1161.0
 size_flags_horizontal = 3
 size_flags_vertical = 2
 custom_fonts/font = SubResource( 8 )
 text = "PluginSignalTest"
+
+[node name="Button3" type="Button" parent="VBoxContainer"]
+margin_top = 1491.0
+margin_right = 1080.0
+margin_bottom = 1593.0
+size_flags_horizontal = 3
+size_flags_vertical = 2
+custom_fonts/font = SubResource( 8 )
+text = "Turn on BT"
+
 [connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Button2" to="." method="_on_Button2_pressed"]
+[connection signal="pressed" from="VBoxContainer/Button3" to="." method="_on_Button3_pressed"]

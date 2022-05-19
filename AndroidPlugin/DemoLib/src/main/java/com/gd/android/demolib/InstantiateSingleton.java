@@ -1,7 +1,13 @@
 package com.gd.android.demolib;
 
 import android.app.Activity;
+import android.app.Activity.*;
+import android.app.Instrumentation;
+import android.content.Intent;
 import android.util.ArraySet;
+import android.bluetooth.BluetoothAdapter;
+import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -16,11 +22,13 @@ import java.util.Set;
 
 public class InstantiateSingleton extends  GodotPlugin {
 
+    private final static int REQUEST_ENABLE_BT = 1; // used to identify adding bluetooth names
+    private BluetoothAdapter mBTAdapter;
     private Activity m_Activity;
-
     public InstantiateSingleton(Godot godot) {
         super(godot);
-        m_Activity = godot;
+        mBTAdapter = BluetoothAdapter.getDefaultAdapter(); // get a handle on the bluetooth radio
+        m_Activity = godot.getActivity();
     }
 
     @NonNull
@@ -35,7 +43,7 @@ public class InstantiateSingleton extends  GodotPlugin {
     public List<String> getPluginMethods() {
 
         return Arrays.asList("SayHello",
-                "TriggerSignal");
+                "TriggerSignal", "BluetoothOn");
     }
 
     @NonNull
@@ -51,7 +59,23 @@ public class InstantiateSingleton extends  GodotPlugin {
 
     public String SayHello(String user) {
 
-        return ("Hello, " + user);
+        return ("Test, " + user);
+    }
+
+    public void BluetoothOn()
+    {
+        try
+        {
+            if (!mBTAdapter.isEnabled()) {
+                Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                m_Activity.startActivityForResult(enableBtIntent,REQUEST_ENABLE_BT);
+            }
+        }
+        catch(Exception e)
+        {
+            Log.e("Error:",e.getMessage());
+        }
+
     }
 
     public  void TriggerSignal()

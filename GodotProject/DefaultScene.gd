@@ -46,3 +46,8 @@ func _on_Button2_pressed():
 func _on_plugin_signal(text: String):
 	message.text = text;
 	pass
+
+
+func _on_Button3_pressed():
+	message.text = "I am turning on bluetooth now"
+	plugin.BluetoothOn()
