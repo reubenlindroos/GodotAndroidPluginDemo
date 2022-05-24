@@ -1,13 +1,10 @@
 package com.gd.android.demolib;
 
 import android.app.Activity;
-import android.app.Activity.*;
-import android.app.Instrumentation;
+import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
-import android.util.ArraySet;
 import android.bluetooth.BluetoothAdapter;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -16,15 +13,19 @@ import org.godotengine.godot.plugin.GodotPlugin;
 import org.godotengine.godot.plugin.SignalInfo;
 
 import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 public class InstantiateSingleton extends  GodotPlugin {
 
+    // vars
     private final static int REQUEST_ENABLE_BT = 1; // used to identify adding bluetooth names
     private BluetoothAdapter mBTAdapter;
     private Activity m_Activity;
+    private Set<BluetoothDevice> mPairedDevices;
+
     public InstantiateSingleton(Godot godot) {
         super(godot);
         mBTAdapter = BluetoothAdapter.getDefaultAdapter(); // get a handle on the bluetooth radio
@@ -42,8 +43,11 @@ public class InstantiateSingleton extends  GodotPlugin {
     @Override
     public List<String> getPluginMethods() {
 
-        return Arrays.asList("SayHello",
-                "TriggerSignal", "BluetoothOn");
+        return Arrays.asList(
+                "SayHello",
+                "TriggerSignal",
+                "BluetoothOn",
+                "ListPairedDevices");
     }
 
     @NonNull
@@ -76,6 +80,24 @@ public class InstantiateSingleton extends  GodotPlugin {
             Log.e("Error:",e.getMessage());
         }
 
+    }
+
+    public String[] ListPairedDevices()
+    {
+        List<String> res = new ArrayList<>();
+        try
+        {
+            mPairedDevices = mBTAdapter.getBondedDevices();
+            for (BluetoothDevice device : mPairedDevices)
+                res.add(device.getName());
+
+        }
+        catch(Exception e)
+        {
+            Log.e("Error:",e.getMessage());
+        }
+        String[] strings = res.toArray(new String[res.size()]);
+        return strings;
     }
 
     public  void TriggerSignal()

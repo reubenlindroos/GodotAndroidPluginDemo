@@ -51,3 +51,13 @@ func _on_plugin_signal(text: String):
 func _on_Button3_pressed():
 	message.text = "I am turning on bluetooth now"
 	plugin.BluetoothOn()
+
+
+func _on_Button4_pressed():
+	var lst = plugin.ListPairedDevices()
+	var complete = ""
+	for string in lst:
+		complete += string + " "
+	text_box.text = "paired devices:" + complete
+	#pass
+		

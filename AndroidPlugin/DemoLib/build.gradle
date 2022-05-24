@@ -5,7 +5,7 @@ plugins {
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
-
+//    buildDir = "C:\\Users\\rjl67\\AndroidStudioProjects\\GodotAndroidPluginDemo\\GodotProject\\android\\plugins"
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 30
