@@ -22,6 +22,7 @@ public class InstantiateSingleton extends  GodotPlugin {
 
     // vars
     private final static int REQUEST_ENABLE_BT = 1; // used to identify adding bluetooth names
+    public final static int MESSAGE_READ = 2; // used in bluetooth handler to identify message update
     private BluetoothAdapter mBTAdapter;
     private Activity m_Activity;
     private Set<BluetoothDevice> mPairedDevices;
@@ -96,7 +97,7 @@ public class InstantiateSingleton extends  GodotPlugin {
         {
             Log.e("Error:",e.getMessage());
         }
-        String[] strings = res.toArray(new String[res.size()]);
+        final String[] strings = res.toArray(new String[res.size()]);
         return strings;
     }
 

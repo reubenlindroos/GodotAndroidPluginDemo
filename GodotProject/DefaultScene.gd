@@ -7,7 +7,7 @@ extends Control
 onready var message = $VBoxContainer/Label;
 onready var status = $VBoxContainer/Label2;
 onready var text_box =$VBoxContainer/TextEdit;
-
+var device_list = []
 var has_plugin : bool;
 var plugin;
 
@@ -47,17 +47,18 @@ func _on_plugin_signal(text: String):
 	message.text = text;
 	pass
 
-
 func _on_Button3_pressed():
-	message.text = "I am turning on bluetooth now"
+	text_box.text = "I am turning on bluetooth now"
 	plugin.BluetoothOn()
 
 
 func _on_Button4_pressed():
-	var lst = plugin.ListPairedDevices()
+	var ret_lst = plugin.ListPairedDevices()
 	var complete = ""
-	for string in lst:
-		complete += string + " "
+	for device in ret_lst:
+		if not device_list.has(device):
+			$VBoxContainer/DeviceList.add_item(device)
+			device_list.append(device)
+		complete += device + " "
 	text_box.text = "paired devices:" + complete
-	#pass
 		
