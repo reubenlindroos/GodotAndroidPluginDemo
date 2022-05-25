@@ -61,4 +61,17 @@ func _on_Button4_pressed():
 			device_list.append(device)
 		complete += device + " "
 	text_box.text = "paired devices:" + complete
-		
+	
+
+func _on_DeviceList_item_selected(index: int) -> void:
+	if not (plugin.Connect($VBoxContainer/DeviceList.get_item_text(index))):
+		text_box.text = "unable to connect to device"
+		return
+	else:
+		text_box.text = "Device connected!"
+	var done = false
+	var time_in_seconds = 1
+	for i in range(100):
+		var msg = plugin.ReadMessage()
+		text_box.text = "got " + str(msg) + "on attempt " + str(i)
+		yield(get_tree().create_timer(time_in_seconds), "timeout")

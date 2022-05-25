@@ -123,9 +123,11 @@ rect_pivot_offset = Vector2( 597, 51 )
 size_flags_horizontal = 3
 size_flags_vertical = 2
 custom_fonts/font = SubResource( 8 )
+allow_reselect = true
 auto_height = true
 
 [connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Button2" to="." method="_on_Button2_pressed"]
 [connection signal="pressed" from="VBoxContainer/Button3" to="." method="_on_Button3_pressed"]
 [connection signal="pressed" from="VBoxContainer/Button4" to="." method="_on_Button4_pressed"]
+[connection signal="item_selected" from="VBoxContainer/DeviceList" to="." method="_on_DeviceList_item_selected"]
