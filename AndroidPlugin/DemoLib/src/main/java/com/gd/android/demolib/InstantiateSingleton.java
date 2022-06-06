@@ -16,6 +16,7 @@ import org.godotengine.godot.plugin.SignalInfo;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Method;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
@@ -114,14 +115,15 @@ public class InstantiateSingleton extends  GodotPlugin {
         return strings;
     }
     // handle threading and looping from Godot so just have the read method here
-    public int ReadMessage() {
+    public String ReadMessage() {
         if (mmInStream == null)
         {
             Log.e(TAG, "Missing instream, is device connected?");
-            return 0;
+            return null;
         }
         byte[] buffer = new byte[1024];  // buffer store for the stream
         int bytes; // bytes returned from read()
+        String readMessage = null;
 
             try {
                 // Read from the InputStream
@@ -131,13 +133,15 @@ public class InstantiateSingleton extends  GodotPlugin {
                     SystemClock.sleep(100); //pause and wait for rest of data. Adjust this depending on your sending speed.
                     bytes = mmInStream.available(); // how many bytes are ready to be read?
                     bytes = mmInStream.read(buffer, 0, bytes); // record how many bytes we actually read
+
+                    readMessage = new String(buffer, "UTF-8");
                 }
 
             } catch (IOException e) {
                 Log.e(TAG, e.getMessage());
-                return 0;
+                return null;
             }
-        return bytes;
+        return readMessage;
     }
 
     public boolean Connect(String deviceName)

@@ -31,18 +31,6 @@ func _ready():
 #func _process(delta):
 #	pass
 
-
-func _on_Button_pressed():
-	if has_plugin:
-		message.text = plugin.SayHello(text_box.text);
-
-
-func _on_Button2_pressed():
-	if has_plugin:
-		plugin.TriggerSignal()
-	pass # Replace with function body.
-
-
 func _on_plugin_signal(text: String):
 	message.text = text;
 	pass
