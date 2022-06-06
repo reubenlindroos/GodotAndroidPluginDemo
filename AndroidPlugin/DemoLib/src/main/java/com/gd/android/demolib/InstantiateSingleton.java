@@ -119,9 +119,9 @@ public class InstantiateSingleton extends  GodotPlugin {
         if (mmInStream == null)
         {
             Log.e(TAG, "Missing instream, is device connected?");
-            return null;
+            return "NULL";
         }
-        byte[] buffer = new byte[1024];  // buffer store for the stream
+        byte[] buffer = new byte[1024];  // buffer store for the strea
         int bytes; // bytes returned from read()
         String readMessage = null;
 
@@ -129,17 +129,17 @@ public class InstantiateSingleton extends  GodotPlugin {
                 // Read from the InputStream
                 bytes = mmInStream.available();
                 if (bytes != 0) {
-                    buffer = new byte[1024];
                     SystemClock.sleep(100); //pause and wait for rest of data. Adjust this depending on your sending speed.
                     bytes = mmInStream.available(); // how many bytes are ready to be read?
                     bytes = mmInStream.read(buffer, 0, bytes); // record how many bytes we actually read
 
-                    readMessage = new String(buffer, "UTF-8");
+                    readMessage = new String(Arrays.copyOfRange(buffer,0,bytes), "UTF-8");
+                    Log.i(TAG,readMessage);
                 }
 
             } catch (IOException e) {
                 Log.e(TAG, e.getMessage());
-                return null;
+                return "NULL";
             }
         return readMessage;
     }
